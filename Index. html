@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10101c">
+<title>My AI Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10101c;color:#fff;font-family:Arial,sans-serif}
+header{padding:24px;background:#19192b}
+h1{margin:0;color:#a78bfa}
+header p{color:#aaa}
+main{padding:18px;max-width:650px;margin:auto}
+.card{background:#202035;padding:20px;border-radius:16px;margin:16px 0}
+label{display:block;margin:15px 0 7px;color:#c4b5fd}
+input,select,textarea{width:100%;padding:13px;border-radius:9px;border:1px solid #444;background:#151525;color:white;font-size:16px}
+textarea{min-height:90px}
+button{border:0;border-radius:10px;padding:14px;background:#8b5cf6;color:white;font-size:16px;font-weight:bold;width:100%;margin-top:14px}
+.result{background:#151525;padding:15px;border-radius:10px;line-height:1.6;overflow-wrap:anywhere}
+small{color:#aaa}
+</style>
+</head>
+<body>
+<header>
+<h1>My AI Studio ✨</h1>
+<p>Your personal AI video creation studio</p>
+</header>
+<main>
+<div class="card">
+<h2>🎬 Create a video</h2>
+<p>Video number: <strong id="count">1</strong></p>
+<p>Duration: <strong id="duration">10–15 seconds</strong></p>
+
+<label>Video idea</label>
+<textarea id="idea" placeholder="Describe the video you want..."></textarea>
+
+<label>Video style</label>
+<select id="style">
+<option>Realistic cinematic</option>
+<option>3D animation</option>
+<option>Cartoon animation</option>
+<option>Surreal and artistic</option>
+</select>
+
+<label>Social media platform</label>
+<select id="platform">
+<option>TikTok</option>
+<option>Instagram Reels</option>
+<option>YouTube Shorts</option>
+<option>All platforms</option>
+</select>
+
+<button onclick="generate()">Generate AI prompt ✨</button>
+</div>
+
+<div class="card">
+<h2>📝 Your video prompt</h2>
+<div class="result" id="result">Your generated prompt will appear here.</div>
+<button onclick="copyPrompt()">Copy prompt</button>
+<small id="status"></small>
+</div>
+
+<div class="card">
+<h2>📌 Your studio</h2>
+<p>First four videos: 10–15 seconds.</p>
+<p>Every fifth video: 15–30 seconds.</p>
+<p>Designed for ready-to-post social content.</p>
+</div>
+</main>
+
+<script>
+let count=Number(localStorage.getItem("videoCount")||0);
+
+function update(){
+document.getElementById("count").textContent=count+1;
+document.getElementById("duration").textContent=
+(count+1)%5===0?"15–30 seconds":"10–15 seconds";
+}
+update();
+
+function generate(){
+const idea=document.getElementById("idea").value.trim();
+if(!idea){alert("Please enter a video idea first.");return;}
+
+const duration=(count+1)%5===0?"15–30 seconds":"10–15 seconds";
+const style=document.getElementById("style").value;
+const platform=document.getElementById("platform").value;
+
+const prompt=`Create a ${duration} ${style} video.
+Concept: ${idea}.
+Platform: ${platform}.
+Use engaging visuals, smooth camera movements,
+professional lighting and clear storytelling.
+Make it polished, engaging and ready for social media.
+Use a vertical 9:16 format.`;
+
+document.getElementById("result").textContent=prompt;
+count++;
+localStorage.setItem("videoCount",count);
+update();
+}
+
+async function copyPrompt(){
+const text=document.getElementById("result").textContent;
+try{
+await navigator.clipboard.writeText(text);
+document.getElementById("status").textContent="Copied successfully!";
+}catch(e){
+document.getElementById("status").textContent="Please select and copy the prompt manually.";
+}
+}
+</script>
+</body>
+</html>
