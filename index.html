@@ -4,114 +4,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10101c">
-  <link rel="manifest" href="manifest.json">
 <title>My AI Studio</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#10101c;color:#fff;font-family:Arial,sans-serif}
-header{padding:24px;background:#19192b}
-h1{margin:0;color:#a78bfa}
-header p{color:#aaa}
-main{padding:18px;max-width:650px;margin:auto}
-.card{background:#202035;padding:20px;border-radius:16px;margin:16px 0}
+body{
+ margin:0;padding:20px;
+ background:#10101c;color:#fff;
+ font-family:Arial,sans-serif;
+}
+header{text-align:center;padding:20px 0}
+h1{color:#a78bfa;margin-bottom:8px}
+.subtitle{color:#aaa}
+.card{
+ background:#202035;padding:20px;
+ border-radius:15px;margin:18px 0;
+ border:1px solid #35354d;
+}
+h2{color:#c4b5fd;font-size:19px}
 label{display:block;margin:15px 0 7px;color:#c4b5fd}
-input,select,textarea{width:100%;padding:13px;border-radius:9px;border:1px solid #444;background:#151525;color:white;font-size:16px}
-textarea{min-height:90px}
-button{border:0;border-radius:10px;padding:14px;background:#8b5cf6;color:white;font-size:16px;font-weight:bold;width:100%;margin-top:14px}
-.result{background:#151525;padding:15px;border-radius:10px;line-height:1.6;overflow-wrap:anywhere}
-small{color:#aaa}
+input,select,textarea{
+ width:100%;padding:13px;
+ border-radius:9px;border:1px solid #45455c;
+ background:#151526;color:white;
+ font-size:15px;
+}
+textarea{min-height:100px;resize:vertical}
+button{
+ width:100%;padding:14px;margin-top:12px;
+ border:0;border-radius:9px;
+ background:#8b5cf6;color:white;
+ font-size:15px;font-weight:bold;
+ cursor:pointer;
+}
+.secondary{background:#37304e}
+.output{
+ background:#151526;padding:15px;
+ border-radius:9px;min-height:70px;
+ white-space:pre-wrap;overflow-wrap:anywhere;
+ color:#ddd;line-height:1.6;
+}
+.provider{
+ padding:14px;background:#292943;
+ border-radius:10px;margin-top:12px;
+}
+.provider p{color:#bbb;font-size:13px}
+a{color:#c4b5fd;text-decoration:none}
+footer{text-align:center;color:#777;font-size:12px;padding:20px}
 </style>
 </head>
-<body>
-<header>
-<h1>My AI Studio ✨</h1>
-<p>Your personal AI video creation studio</p>
-</header>
-<main>
-<div class="card">
-<h2>🎬 Create a video</h2>
-<p>Video number: <strong id="count">1</strong></p>
-<p>Duration: <strong id="duration">10–15 seconds</strong></p>
 
-<label>Video idea</label>
-<textarea id="idea" placeholder="Describe the video you want..."></textarea>
+<body>
+
+<header>
+<h1>✨ My AI Studio</h1>
+<p class="subtitle">Your personal AI video creation studio</p>
+</header>
+
+<div class="card">
+<h2>🎬 1. Create Your Video Prompt</h2>
+
+<label>What video do you want to create?</label>
+<textarea id="idea" placeholder="Describe your video idea..."></textarea>
 
 <label>Video style</label>
 <select id="style">
-<option>Realistic cinematic</option>
-<option>3D animation</option>
-<option>Cartoon animation</option>
-<option>Surreal and artistic</option>
+<option>Realistic</option>
+<option>Cinematic</option>
+<option>Anime</option>
+<option>Cartoon</option>
+<option>3D Animation</option>
+<option>Fantasy</option>
+<option>Professional Commercial</option>
 </select>
 
-<label>Social media platform</label>
-<select id="platform">
-<option>TikTok</option>
-<option>Instagram Reels</option>
-<option>YouTube Shorts</option>
-<option>All platforms</option>
+<label>Video duration</label>
+<select id="duration">
+<option>10 seconds</option>
+<option>15 seconds</option>
+<option>20 seconds</option>
+<option>30 seconds</option>
 </select>
 
-<button onclick="generate()">Generate AI prompt ✨</button>
+<label>Video format</label>
+<select id="format">
+<option>Vertical 9:16 - TikTok/Reels/Shorts</option>
+<option>Horizontal 16:9 - YouTube</option>
+<option>Square 1:1</option>
+</select>
+
+<button onclick="generatePrompt()">Generate AI Prompt</button>
+
+<label>Your generated prompt</label>
+<div class="output" id="result">Your video prompt will appear here.</div>
+
+<button class="secondary" onclick="copyPrompt()">📋 Copy Prompt</button>
 </div>
 
 <div class="card">
-<h2>📝 Your video prompt</h2>
-<div class="result" id="result">Your generated prompt will appear here.</div>
-<button onclick="copyPrompt()">Copy prompt</button>
-<small id="status"></small>
+<h2>🚀 2. Generate Your Video</h2>
+<p style="color:#bbb;font-size:14px">
+Choose an external AI video generator. Copy your prompt first, then open the service.
+</p>
+
+<div class="provider">
+<strong>PixVerse AI</strong>
+<p>Text-to-video, image-to-video and creative effects.</p>
+<a href="https://app.pixverse.ai/" target="_blank" rel="noopener">Open PixVerse ↗</a>
+</div>
+
+<div class="provider">
+<strong>Kling AI</strong>
+<p>AI video generation and cinematic visuals.</p>
+<a href="https://klingai.com/" target="_blank" rel="noopener">Open Kling ↗</a>
+</div>
+
+<div class="provider">
+<strong>Google Flow</strong>
+<p>AI filmmaking and video generation.</p>
+<a href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">Open Google Flow ↗</a>
+</div>
+
+<button class="secondary" onclick="copyPrompt()">
+Copy Prompt Before Opening
+</button>
 </div>
 
 <div class="card">
-<h2>📌 Your studio</h2>
-<p>First four videos: 10–15 seconds.</p>
-<p>Every fifth video: 15–30 seconds.</p>
-<p>Designed for ready-to-post social content.</p>
+<h2>📁 3. My Video Library</h2>
+<p style="color:#bbb;font-size:14px">
+Your finished videos can be saved to your Android phone.
+</p>
+<button onclick="document.getElementById('videoFiles').click()">
+Select My Videos
+</button>
+<input type="file" id="videoFiles" accept="video/*" multiple
+style="display:none" onchange="showVideos()">
+<div id="videoList"></div>
 </div>
-</main>
+
+<footer>
+My AI Studio · Personal Edition
+</footer>
 
 <script>
-let count=Number(localStorage.getItem("videoCount")||0);
+function generatePrompt(){
+ const idea=document.getElementById("idea").value.trim();
+ const style=document.getElementById("style").value;
+ const duration=document.getElementById("duration").value;
+ const format=document.getElementById("format").value;
 
-function update(){
-document.getElementById("count").textContent=count+1;
-document.getElementById("duration").textContent=
-(count+1)%5===0?"15–30 seconds":"10–15 seconds";
-}
-update();
+ if(!idea){
+  alert("Please describe your video idea first.");
+  return;
+ }
 
-function generate(){
-const idea=document.getElementById("idea").value.trim();
-if(!idea){alert("Please enter a video idea first.");return;}
+ const prompt=
+ `Create a ${duration} ${style.toLowerCase()} AI video.
 
-const duration=(count+1)%5===0?"15–30 seconds":"10–15 seconds";
-const style=document.getElementById("style").value;
-const platform=document.getElementById("platform").value;
+SCENE:
+${idea}
 
-const prompt=`Create a ${duration} ${style} video.
-Concept: ${idea}.
-Platform: ${platform}.
-Use engaging visuals, smooth camera movements,
-professional lighting and clear storytelling.
-Make it polished, engaging and ready for social media.
-Use a vertical 9:16 format.`;
+VISUAL STYLE:
+${style}, high-quality visuals, detailed environments,
+beautiful lighting and professional composition.
 
-document.getElementById("result").textContent=prompt;
-count++;
-localStorage.setItem("videoCount",count);
-update();
+CAMERA:
+Smooth cinematic camera movement, natural motion
+and consistent subjects.
+
+FORMAT:
+${format}.
+
+QUALITY:
+High visual quality, coherent motion, no distorted
+objects, no unnecessary text or watermarks.
+
+Make the video engaging and ready for social media.`;
+
+ document.getElementById("result").textContent=prompt;
 }
 
 async function copyPrompt(){
-const text=document.getElementById("result").textContent;
-try{
-await navigator.clipboard.writeText(text);
-document.getElementById("status").textContent="Copied successfully!";
-}catch(e){
-document.getElementById("status").textContent="Please select and copy the prompt manually.";
+ const prompt=document.getElementById("result").textContent;
+ if(prompt==="Your video prompt will appear here."){
+  alert("Generate a prompt first.");
+  return;
+ }
+ try{
+  await navigator.clipboard.writeText(prompt);
+  alert("Prompt copied successfully!");
+ }catch(e){
+  alert("Please select and copy the prompt manually.");
+ }
 }
+
+function showVideos(){
+ const files=document.getElementById("videoFiles").files;
+ const list=document.getElementById("videoList");
+ list.innerHTML="";
+
+ for(const file of files){
+  const item=document.createElement("p");
+  item.style.color="#c4b5fd";
+  item.textContent="🎥 "+file.name;
+  list.appendChild(item);
+ }
 }
 </script>
+
 </body>
 </html>
