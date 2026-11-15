@@ -1,14 +1,14 @@
 
 {
   "name": "My AI Studio",
-  "short_name": "My AI Studio",
+  "short_name": "AI Studio",
   "description": "Your personal AI video creation studio",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#10101c",
-  "theme_color": "#10101c",
+  "theme_color": "#19192b",
   "icons": [
     {
       "src": "icon-192.png",
