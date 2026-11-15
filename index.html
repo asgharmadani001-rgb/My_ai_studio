@@ -215,5 +215,15 @@ function showVideos(){
 }
 </script>
 
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("My AI Studio is ready!"))
+      .catch(error => console.error("Service Worker error:", error));
+  });
+}
+</script>
+
 </body>
 </html>
